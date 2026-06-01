@@ -7,33 +7,59 @@
 - *Choose the appropriate solution (VM or App Service) for deploying the app*
 - *Justify your choice*
 
-### Assess app changes that would change your decision.
+# Deployment Resource Analysis
 
-*Detail how the app and any other needs would have to change for you to change your decision in the last section.* 
-## Additional Deployment and Containerization Notes
+## Virtual Machine (VM) Analysis
 
-For this project, I selected Azure App Service because it provides an easier deployment workflow, automatic scaling support, and simplified management compared to maintaining a Virtual Machine manually. It is more suitable for small and medium web applications like this CMS project.
+### Costs
 
-If the application grows larger in the future, containerization using Docker could also be considered. Docker would help package the Flask application along with all dependencies into a single container, making deployment more consistent across different environments.
+Using a Virtual Machine can become expensive because the user must pay for the VM instance, storage, networking, and maintenance. Additional costs may also occur for backups, monitoring, and scaling resources manually.
 
-### Docker Compose and Persistent Storage
+### Scalability
 
-Docker Compose can be useful when managing multiple services together such as:
+A VM provides flexibility, but scaling must usually be handled manually. If the application traffic increases, larger VM sizes or multiple VMs would need to be configured separately using load balancers.
 
-* Flask application
-* SQL database
-* Storage or caching services
+### Availability
 
-Using Docker volumes would also help preserve uploaded image data and database-related files even after restarting containers.
+Availability depends on how the VM is configured and maintained. The user is responsible for updates, monitoring, backups, and recovery processes to keep the application running properly.
 
-### Logging and Monitoring
+### Workflow
 
-Application logging is important for monitoring login attempts, deployment activity, and runtime errors. Azure Log Stream was used in this project to observe application behavior during deployment and testing.
+Deploying with a VM requires more setup and maintenance. The user must configure the operating system, install dependencies, manage updates, and handle deployments manually.
 
-Health checks can also be added in future improvements to verify:
+---
 
-* Application availability
-* Database connection status
-* Blob storage accessibility
+## App Service Analysis
 
-These improvements would make the deployment more reliable, maintainable, and production-ready.
+### Costs
+
+Azure App Service is cost-effective for small and medium web applications because infrastructure management is handled by Azure. The Free and Basic plans are suitable for lightweight applications and reduce maintenance overhead.
+
+### Scalability
+
+App Service supports automatic scaling and makes it easier to increase resources when traffic grows. Scaling can be performed quickly without manually configuring servers.
+
+### Availability
+
+Azure App Service provides high availability and reliability through Azure-managed infrastructure. Microsoft handles server maintenance, patching, and uptime management.
+
+### Workflow
+
+The deployment workflow is much simpler with App Service. Applications can be deployed directly from GitHub or ZIP deployment, and Azure automatically manages the runtime environment.
+
+---
+
+# Deployment Choice and Justification
+
+I selected Azure App Service for deploying the CMS application because it provides an easier deployment workflow, automatic scaling, and simplified infrastructure management. It also reduces the amount of server administration required compared to a Virtual Machine.
+
+App Service is more suitable for this project because the CMS application is a lightweight Flask web application that does not require full operating system control. Azure manages updates, runtime configuration, and availability, which allows development to focus more on application features instead of infrastructure maintenance.
+
+---
+
+# Decision Change Scenario
+
+If the application later required custom operating system configurations, advanced networking settings, or persistent local storage, then using a Virtual Machine would become a better option. A VM would provide more control over the server environment and allow additional software or services to be installed directly on the operating system.
+
+To support those requirements, the application architecture would also need changes such as manual scaling configuration, server monitoring, operating system maintenance, backup management, and additional security configuration. This would increase infrastructure responsibility but provide greater flexibility and customization.
+
